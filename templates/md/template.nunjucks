@@ -1,0 +1,24 @@
+# {{ title }} API documentation{% if version %} version {{ version }}{% endif %}
+{{ baseUri }}
+
+{% for item in documentation %}
+
+## Table of Contents
+
+- [Introduction](#introduction)
+
+{% for resource in resources -%}
+
+- `{{ resource.relativeUri }}`
+    {% include "./resource_toc.nunjucks" %}
+{% endfor %}
+
+## Introduction
+{{ item.content }}
+{% endfor %}
+
+---
+
+{% for resource in resources %}
+{% include "./resource.nunjucks" %}
+{% endfor %}

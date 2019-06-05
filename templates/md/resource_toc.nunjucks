@@ -1,0 +1,15 @@
+{% if (resource.methods or (resource.description and resource.parentUrl)) -%}
+{% for method in resource.methods %}
+    - [`{{ method.method | upper }} {{ resource.parentUrl }}{{ resource.relativeUri }}`](#{{ method.method }}-
+        {%- if resource.parentUrl -%}
+        {{ resource.parentUrl | lower | replace(r/{|}|\/|\?|=/g, "") }}
+        {%- endif -%}
+        {%- if resource.relativeUri -%}
+        {{ resource.relativeUri | lower | replace(r/{|}|\/|\?|=/g, "") }}
+        {%- endif -%}
+        )
+{%- endfor -%}
+{%- endif -%}
+{%- for resource in resource.resources -%}
+{% include "./resource_toc.nunjucks" %}
+{%- endfor -%}

@@ -1,0 +1,23 @@
+{
+  "name": "wiki",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanwholey/wiki.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanwholey/wiki/issues"
+  },
+  "homepage": "https://github.com/ryanwholey/wiki#readme",
+  "devDependencies": {
+    "raml2html": "^7.4.0",
+    "raml2html-markdown-theme": "^1.0.2"
+  }
+}

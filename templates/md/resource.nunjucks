@@ -1,0 +1,55 @@
+{% if (resource.methods or (resource.description and resource.parentUrl)) %}
+## {{ resource.parentUrl }}{{ resource.relativeUri }}
+{% if resource.parentUrl %}{{ resource.description }}{% endif %}
+{% for method in resource.methods %}
+### {{ method.method | upper }} {{ resource.parentUrl }}{{ resource.relativeUri }}
+
+{% if method.securedBy %}*(secured)*: {% endif %}{{ method.description }} 
+
+
+
+{% if method.queryParameters %}
+**Query Parameters**
+
+{% for param in method.queryParameters %}
+- **{{ param.name }}**: *{% if param.required %}required{% else %}optional{% endif %} ({{ param.type }})*
+    {%- if param.description %}
+    
+    {{ param.description | indent(4, false) }}
+    {% endif -%}
+    {%- if param.examples %}
+        {% for example in param.examples %}
+    **Example:** `{{ example.value }}`
+        {% endfor %}            
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+{% for methodBody in method.body %}
+    {% for methodBodyExample in methodBody.examples %}
+**Request**
+
+```json
+{{ methodBodyExample.value | trim }}
+```
+    {% endfor %}
+{% endfor %}
+
+{% for response in method.responses %}
+**{{ response.code }} response**
+
+{% if response.description %}{{ response.description }}{% endif %}
+    {% for responseBody in response.body %}
+        {% for responseBodyExample in responseBody.examples %}
+```json
+{{ responseBodyExample.value | trim }}
+```
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% for resource in resource.resources %}
+{% include "./resource.nunjucks" %}
+{% endfor %}
